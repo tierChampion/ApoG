@@ -12,5 +12,5 @@ Vertex::Vertex(float x, float y)
 
 std::ostream &operator<<(std::ostream &os, const Vertex &vert)
 {
-    return os << "Vertex: " << vert._x  << " " << vert._y;
+    return os << "Vertex (" << vert._x  << ", " << vert._y << ")";
 }
