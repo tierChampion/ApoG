@@ -1,40 +1,36 @@
 #include "bfs.h"
 
 #include <memory>
+#include <queue>
+#include <unordered_map>
 
 BfsTraversal::BfsTraversal(const Graph &graph)
-    : Traversal(graph),
-      _workQueue(std::queue<Vertex>()),
-      _visitedMap(std::unordered_map<Vertex, bool>())
+    : Traversal(graph)
 {
 }
 
-std::vector<Vertex> BfsTraversal::traverse(const Vertex &start)
+void BfsTraversal::traverse(const Vertex &start)
 {
-    std::vector<Vertex> traversal = std::vector<Vertex>();
+    std::queue<Vertex> workQueue;
+    std::unordered_map<Vertex, bool> visitedMap;
 
-    _workQueue.push(start);
+    workQueue.push(start);
 
-    while (!_workQueue.empty())
+    while (!workQueue.empty())
     {
-        const Vertex &current = _workQueue.front();
-        
-        std::cout << current << std::endl;
-        
-        _workQueue.pop();
+        const Vertex &current = workQueue.front();
 
-        traversal.emplace_back(current);
-        _visitedMap[current] = true;
+        workQueue.pop();
 
-        // get the neighbors and add to the queue
+        _traversal.emplace_back(current);
+        visitedMap[current] = true;
+
         for (std::shared_ptr<Vertex> vert : _graph.getNeighbours(current))
         {
-            if (!_visitedMap[*vert.get()])
+            if (!visitedMap[*vert.get()])
             {
-                _workQueue.push(*vert.get());
+                workQueue.push(*vert.get());
             }
         }
     }
-
-    return traversal;
 }

@@ -4,12 +4,18 @@
 
 class Traversal
 {
-
 public:
-    Traversal(const Graph &graph) : _graph(graph) {}
+    Traversal(const Graph &graph)
+        : _graph(graph)
+    {
+    }
 
-    virtual std::vector<Vertex> traverse(const Vertex& start) = 0;
+    virtual void traverse(const Vertex &start) = 0;
+
+    std::vector<Vertex>::iterator begin() { return _traversal.begin(); }
+    std::vector<Vertex>::iterator end() { return _traversal.end(); }
 
 protected:
-    Graph _graph;
+    const Graph _graph;
+    std::vector<Vertex> _traversal;
 };

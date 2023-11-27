@@ -22,11 +22,11 @@ int main()
   BfsTraversal bfs = BfsTraversal(graph);
   DfsTraversal dfs = DfsTraversal(graph);
 
-  std::vector<Vertex> bfsTrav = bfs.traverse(vertices[0]);
-  std::vector<Vertex> dfsTrav = dfs.traverse(vertices[0]);
+  bfs.traverse(vertices[0]);
+  dfs.traverse(vertices[0]);
 
   std::cout << "BFS traversal: " << std::endl;
-  for (Vertex v : bfsTrav)
+  for (Vertex v : bfs)
   {
     std::cout << v << std::endl;
   }
@@ -34,7 +34,7 @@ int main()
   std::cout << std::endl
             << "DFS traversal: " << std::endl;
 
-  for (Vertex v : dfsTrav)
+  for (Vertex v : dfs)
   {
     std::cout << v << std::endl;
   }

@@ -1,40 +1,36 @@
 #include "dfs.h"
 
 #include <memory>
+#include <stack>
+#include <unordered_map>
 
 DfsTraversal::DfsTraversal(const Graph &graph)
-    : Traversal(graph),
-      _workStack(std::stack<Vertex>()),
-      _visitedMap(std::unordered_map<Vertex, bool>())
+    : Traversal(graph)
 {
 }
 
-std::vector<Vertex> DfsTraversal::traverse(const Vertex &start)
+void DfsTraversal::traverse(const Vertex &start)
 {
-    std::vector<Vertex> traversal = std::vector<Vertex>();
+    std::stack<Vertex> workStack;
+    std::unordered_map<Vertex, bool> visitedMap;
 
-    _workStack.push(start);
+    workStack.push(start);
 
-    while (!_workStack.empty())
+    while (!workStack.empty())
     {
-        const Vertex &current = _workStack.top();
-        
-        std::cout << current << std::endl;
-        
-        _workStack.pop();
+        const Vertex &current = workStack.top();
 
-        traversal.emplace_back(current);
-        _visitedMap[current] = true;
+        workStack.pop();
 
-        // get the neighbors and add to the queue
+        _traversal.emplace_back(current);
+        visitedMap[current] = true;
+
         for (std::shared_ptr<Vertex> vert : _graph.getNeighbours(current))
         {
-            if (!_visitedMap[*vert.get()])
+            if (!visitedMap[*vert.get()])
             {
-                _workStack.push(*vert.get());
+                workStack.push(*vert.get());
             }
         }
     }
-
-    return traversal;
 }
