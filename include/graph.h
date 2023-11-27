@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 #include "vertex.h"
@@ -24,5 +24,5 @@ private:
     int _vertexDimension;
     int _edgeDimension;
     std::vector<Vertex> _vertices;
-    std::map<uint64_t, std::vector<int>> _adjacency;
+    std::unordered_map<uint64_t, std::vector<int>> _adjacency;
 };
